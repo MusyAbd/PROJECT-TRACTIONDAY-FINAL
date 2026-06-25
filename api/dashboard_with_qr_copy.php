@@ -501,78 +501,47 @@ require 'config/koneksi.php';
   </section>
 
   <!-- ── 4. QR ABSEN ── -->
-  <section id="qr">
-    <div class="wrap">
-      <div class="qr-inner">
-        <!-- LEFT -->
-        <div class="reveal">
-          <div class="overline">Registration</div>
-          <h2 class="section-title">Register Yourself Here</h2>
-          <p class="section-sub">Daftarkan dirimu untuk Traction Day 2026 dan dapatkan QR code personalmu. Tunjukkan ke panitia saat check-in di depan pintu masuk Champion 1.</p>
-
-          <div class="qr-steps">
-            <div class="qr-step">
-              <div class="step-num">1</div>
-              <div class="step-text">
-                <strong>Isi email & departemen</strong>
-                <span>Masukkan email dan departemenmu.</span>
-              </div>
+    <section id="qr">
+      <div class="wrap">
+        <div class="qr-inner">
+          
+          <div class="reveal">
+            <div class="overline">Registration</div>
+            <h2 class="section-title">Register Yourself Here</h2>
+            <p class="section-sub">Daftarkan dirimu untuk Traction Day 2026...</p>
             </div>
-            <div class="qr-step">
-              <div class="step-num">2</div>
-              <div class="step-text">
-                <strong>Register & download</strong>
-                <span>QR siap ditunjukkan saat check-in atau disimpan di galeri.</span>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        <!-- RIGHT: FORM -->
-        <div class="qr-panel reveal" style="transition-delay:.12s">
+          <div class="qr-panel" style="transition-delay:.12s"> 
             <?php
-            // UBAH CEK SESSION MENJADI CEK COOKIE
+            // Cek apakah user sudah login melalui Cookie
             if (!isset($_COOKIE['loggedin']) || $_COOKIE['loggedin'] !== 'true') { 
-                // --- JIKA BELUM LOGIN: TAMPILKAN FORM LOGIN ---
             ?>
                 <div class="qr-form">
-                    <h3 style="text-align:center; margin-bottom:15px;">Login untuk Membuka QR</h3>
                     <?php
                     $file = __DIR__ . '/login.php';
-                    if (file_exists($file) && is_readable($file)) {
-                        include $file;
-                    } else {
-                        echo "<p style='color:red;'>File login tidak ditemukan.</p>";
-                    }
+                    if (file_exists($file)) { include $file; } 
                     ?>
                 </div>
             <?php
             } else {
-                // --- JIKA SUDAH LOGIN: TAMPILKAN QR CODE ---
             ?>
-                <div id="qrOutput" style="text-align:center;">
-                    <h3 style="margin-bottom:15px;">QR Code Anda</h3>
+                <div id="qrOutput" style="width: 100%;">
                     <?php
                     $file = __DIR__ . '/qr_secure.php';
-                    if (file_exists($file) && is_readable($file)) {
-                        include $file;
-                    } else {
-                        echo "<p style='color:red;'>File QR tidak ditemukan.</p>";
-                    }
+                    if (file_exists($file)) { include $file; } 
                     ?>
-                    <div style="margin-top: 20px;">
-                        <a href="logout.php" class="btn-outline" style="text-decoration:none; padding: 8px 16px;">Keluar (Logout)</a>
+                    <div style="text-align: center; margin-top: 15px;">
+                        <a href="logout.php" style="color:#fff; text-decoration:underline;">Logout</a>
                     </div>
                 </div>
             <?php
             }
             ?>
-        </div>
+          </div>
+
         </div>
       </div>
-    </div>
-  </section>
-
+    </section>
   <!-- ── 5. AI ASSISTANT ── -->
   <section id="assistant">
     <div class="wrap">
