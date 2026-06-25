@@ -1,5 +1,5 @@
 <?php
-require_once . '/';
+require_once  '/config/koneksi.php';
 ?>
 <!DOCTYPE html>
 <html lang="id">
