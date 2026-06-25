@@ -500,7 +500,7 @@ require 'config/koneksi.php';
     </div>
   </section>
 
-  <!-- ── 4. QR ABSEN ── -->
+  <!-- ── 4. QR ABSENSI ── -->
     <section id="qr">
       <div class="wrap">
         <div class="qr-inner">
