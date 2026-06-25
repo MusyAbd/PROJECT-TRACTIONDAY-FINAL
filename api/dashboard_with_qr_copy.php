@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . 'config/koneksi.php';
+require 'config/koneksi.php';
 ?>
 <!DOCTYPE html>
 <html lang="id">
