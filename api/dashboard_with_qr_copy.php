@@ -550,7 +550,7 @@ require 'config/koneksi.php';
             } else {
                 // --- JIKA SUDAH LOGIN: TAMPILKAN QR CODE ---
             ?>
-                <div id="qrOutput" style="text-align:center;">
+                <div id="qr-form" style="text-align:center;">
                     <h3 style="margin-bottom:15px;">QR Code Anda</h3>
                     <?php
                     $file = __DIR__ . '/qr_secure.php';
@@ -560,9 +560,6 @@ require 'config/koneksi.php';
                         echo "<p style='color:red;'>File QR tidak ditemukan.</p>";
                     }
                     ?>
-                    <div style="margin-top: 20px;">
-                        <a href="logout.php" class="btn-outline" style="text-decoration:none; padding: 8px 16px;">Keluar (Logout)</a>
-                    </div>
                 </div>
             <?php
             }
