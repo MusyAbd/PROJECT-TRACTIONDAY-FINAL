@@ -7,7 +7,7 @@ require_once __DIR__ . '/auth_check.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <link rel="stylesheet" href="/CSS/WIP.css">
+    <link rel="stylesheet" href="Frontend/CSS/WIP.css">
     <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js" defer></script>
     <script type="text/javascript" src="/Frontend/JS-UI/dashboard.js" defer></script>
 </head>
@@ -221,7 +221,7 @@ require_once __DIR__ . '/auth_check.php';
                 </div>
                 <div class="registration-card">
                     <?php
-                    $file = __DIR__ . '/qr_secure.php';
+                    $file = __DIR__ . '/api/qr_secure.php';
 
                     if (file_exists($file) && is_readable($file)) {
                         include $file;
