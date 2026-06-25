@@ -4,18 +4,11 @@
       "runtime": "vercel-php@0.9.0"
     }
   },
-  "routes": [
+  "redirects": [
     {
-      "src": "/",
-      "dest": "/api/index.php"
-    },
-    {
-      "src": "/Frontend/(.*)",
-      "dest": "/Frontend/$1"
-    },
-    {
-      "src": "/(.*\\.php)",
-      "dest": "/api/$1"
+      "source": "/",
+      "destination": "/api/index.php",
+      "permanent": false
     }
   ]
 }
