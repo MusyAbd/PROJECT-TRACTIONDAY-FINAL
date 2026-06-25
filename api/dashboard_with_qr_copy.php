@@ -9,7 +9,7 @@ require_once __DIR__ . '/auth_check.php';
     <title>Dashboard</title>
     <link rel="stylesheet" href="./CSS/WIP.css">
     <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js" defer></script>
-    <script type="text/javascript" src="./JS-UI/dashboard.js" defer></script>
+    <script type="text/javascript" src="/Frontend/JS-UI/dashboard.js" defer></script>
 </head>
 <body class="dashboard-body">
     <div class="parent">
