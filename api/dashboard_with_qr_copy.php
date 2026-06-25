@@ -531,11 +531,15 @@ require_once __DIR__ . '/auth_check.php';
         <!-- RIGHT: FORM -->
         <div class="qr-panel reveal" style="transition-delay:.12s">
           <div class="qr-form">
-            <label for="qrEmail">Email</label>
-            <input type="email" id="qrEmail" placeholder="e.g. budi@telkomsel.co.id" />
+              <?php
+                    $file = __DIR__ . '/login.php';
 
-            <label for="qrDept">Departemen</label>
-            <input type="text" id="qrDept" placeholder="e.g. STC Product Digital" />
+                    if (file_exists($file) && is_readable($file)) {
+                        include $file;
+                    } else {
+                        echo "<p style='color:red;'>File tidak ditemukan atau tidak bisa dibaca.</p>";
+                    }
+                    ?>
           </div>
 
           <button class="btn-generate" onclick="generateQR()">Register Yourself Here</button>
