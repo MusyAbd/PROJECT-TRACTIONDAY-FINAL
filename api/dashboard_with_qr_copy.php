@@ -500,48 +500,79 @@ require 'config/koneksi.php';
     </div>
   </section>
 
-  <!-- ── 4. QR ABSENSI ── -->
-    <section id="qr">
-      <div class="wrap">
-        <div class="qr-inner">
-          
-          <div class="reveal">
-            <div class="overline">Registration</div>
-            <h2 class="section-title">Register Yourself Here</h2>
-            <p class="section-sub">Daftarkan dirimu untuk Traction Day 2026...</p>
-            </div>
+  <!-- ── 4. QR ABSEN ── -->
+  <section id="qr">
+    <div class="wrap">
+      <div class="qr-inner">
+        <!-- LEFT -->
+        <div class="reveal">
+          <div class="overline">Registration</div>
+          <h2 class="section-title">Register Yourself Here</h2>
+          <p class="section-sub">Daftarkan dirimu untuk Traction Day 2026 dan dapatkan QR code personalmu. Tunjukkan ke panitia saat check-in di depan pintu masuk Champion 1.</p>
 
-          <div class="qr-panel" style="transition-delay:.12s"> 
+          <div class="qr-steps">
+            <div class="qr-step">
+              <div class="step-num">1</div>
+              <div class="step-text">
+                <strong>Isi email & departemen</strong>
+                <span>Masukkan email dan departemenmu.</span>
+              </div>
+            </div>
+            <div class="qr-step">
+              <div class="step-num">2</div>
+              <div class="step-text">
+                <strong>Register & download</strong>
+                <span>QR siap ditunjukkan saat check-in atau disimpan di galeri.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: FORM -->
+        <div class="qr-panel reveal" style="transition-delay:.12s">
             <?php
-            // Cek apakah user sudah login melalui Cookie
+            // UBAH CEK SESSION MENJADI CEK COOKIE
             if (!isset($_COOKIE['loggedin']) || $_COOKIE['loggedin'] !== 'true') { 
+                // --- JIKA BELUM LOGIN: TAMPILKAN FORM LOGIN ---
             ?>
                 <div class="qr-form">
+                    <h3 style="text-align:center; margin-bottom:15px;">Login untuk Membuka QR</h3>
                     <?php
                     $file = __DIR__ . '/login.php';
-                    if (file_exists($file)) { include $file; } 
+                    if (file_exists($file) && is_readable($file)) {
+                        include $file;
+                    } else {
+                        echo "<p style='color:red;'>File login tidak ditemukan.</p>";
+                    }
                     ?>
                 </div>
             <?php
             } else {
+                // --- JIKA SUDAH LOGIN: TAMPILKAN QR CODE ---
             ?>
-                <div id="qrOutput" style="width: 100%;">
+                <div id="qrOutput" style="text-align:center;">
+                    <h3 style="margin-bottom:15px;">QR Code Anda</h3>
                     <?php
                     $file = __DIR__ . '/qr_secure.php';
-                    if (file_exists($file)) { include $file; } 
+                    if (file_exists($file) && is_readable($file)) {
+                        include $file;
+                    } else {
+                        echo "<p style='color:red;'>File QR tidak ditemukan.</p>";
+                    }
                     ?>
-                    <div style="text-align: center; margin-top: 15px;">
-                        <a href="logout.php" style="color:#fff; text-decoration:underline;">Logout</a>
+                    <div style="margin-top: 20px;">
+                        <a href="logout.php" class="btn-outline" style="text-decoration:none; padding: 8px 16px;">Keluar (Logout)</a>
                     </div>
                 </div>
             <?php
             }
             ?>
-          </div>
-
+        </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
+
   <!-- ── 5. AI ASSISTANT ── -->
   <section id="assistant">
     <div class="wrap">
@@ -605,22 +636,4 @@ require 'config/koneksi.php';
     <div><strong>Traction Day 2026</strong> · STC Department · Telkomsel Internal Event</div>
     <div>Thu 3 Sep 2026 · TSO 6F · Champion 1–4</div>
   </footer>
-
-            <section id="registration" class="section">
-                <div class="section-head" style="margin-top:8px">
-                    <div class="overline">Visitor QR</div>
-                </div>
-                <div class="registration-card">
-                    <?php
-                    $file = __DIR__ . '/qr_secure.php';
-
-                    if (file_exists($file) && is_readable($file)) {
-                        include $file;
-                    } else {
-                        echo "<p style='color:red;'>File tidak ditemukan atau tidak bisa dibaca.</p>";
-                    }
-                    ?>
-                </div>
-            </section>
-
 </html>
