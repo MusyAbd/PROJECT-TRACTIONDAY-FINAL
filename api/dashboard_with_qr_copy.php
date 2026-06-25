@@ -531,8 +531,8 @@ require 'config/koneksi.php';
         <!-- RIGHT: FORM -->
         <div class="qr-panel reveal" style="transition-delay:.12s">
             <?php
-            // Cek apakah user SUDAH login (Asumsi nama session login kamu adalah 'user_id' atau 'username')
-            if (!isset($_COOKIE['user_id'])) { 
+            // UBAH CEK SESSION MENJADI CEK COOKIE
+            if (!isset($_COOKIE['loggedin']) || $_COOKIE['loggedin'] !== 'true') { 
                 // --- JIKA BELUM LOGIN: TAMPILKAN FORM LOGIN ---
             ?>
                 <div class="qr-form">
@@ -561,12 +561,13 @@ require 'config/koneksi.php';
                     }
                     ?>
                     <div style="margin-top: 20px;">
-                        <a href="logout.php" style="color: #c4162a; text-decoration: underline; font-size: 14px;">Keluar (Logout)</a>
+                        <a href="logout.php" class="btn-outline" style="text-decoration:none; padding: 8px 16px;">Keluar (Logout)</a>
                     </div>
                 </div>
             <?php
             }
             ?>
+        </div>
         </div>
       </div>
     </div>
