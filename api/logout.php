@@ -2,11 +2,11 @@
 session_start();
 
 // Hapus semua variabel session
-$_SESSION = array();
+$_COOKIE = array();
 
 // Hancurkan session
-session_destroy();
+cookie_destroy();
 
 // Alihkan kembali ke login
-header('Location: login.php');
+header('Location: dashboard_with_qr.php');
 exit;
