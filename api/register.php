@@ -50,10 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body class="login-bg">
     <div class="login-container">
-        <div class="logo">
-            <img src="https://storage.googleapis.com/pkg-portal-bucket/images/template/logo-PG-agro-trans-small.png" alt="Logo Petrokimia Gresik">
-        </div>
-        <?php
+               <?php
         if (isset($_SESSION['error'])) {
             echo '<p class="login-alert">' . htmlspecialchars($_SESSION['error']) . '</p>';
             unset($_SESSION['error']);
@@ -64,7 +61,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input class="fillbar" type="password" name="password" placeholder="Password" required>
             <input class="fillbar" type="password" name="confirm_password" placeholder="Konfirmasi Password" required>
             <button type="submit" class="btn">Register</button>
-            <p>Sudah punya akun? <a href="login.php">Login</a></p>
         </form>
     </div>
 </body>
