@@ -1,5 +1,5 @@
 <?php
-require 'config/koneksi.php';
+require_once . '/';
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -546,81 +546,24 @@ require 'config/koneksi.php';
                     }
                     ?>
                 </div>
-                <?php
-                            } else {
-                                // --- JIKA SUDAH LOGIN: TAMPILKAN QR CODE ---
-                                
-                                // 1. TANGKAP DATA DARI COOKIE SEBELUM DIGUNAKAN
-                                $username = $_COOKIE['username'] ?? 'User';
-                                $combined = $_COOKIE['last_qr'] ?? ''; 
-                                $saveMessage = null; // Kosongkan jika tidak ada pesan error/sukses
-                            ?>
-                            
-<div class="card" style="max-width:420px; margin:0 auto; text-align:center; padding:18px; border:1px solid #ddd; border-radius:8px;">
-        <h2>QR Code <?php echo htmlspecialchars($username, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); ?></h2>
-        
-        <canvas id="qrcode-canvas" style="display:block; margin:12px auto; max-width: 250px; width: 100%;"></canvas>
-
-        <?php if ($saveMessage !== null): ?>
-            <p style="margin-top:10px; color:#333; font-weight:600;"><?php echo htmlspecialchars($saveMessage, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); ?></p>
-        <?php endif; ?>
-
-        <div style="margin-top: 20px; display: flex; justify-content: center; gap: 10px;">
-            <button id="open-btn" class="btn-outline">Buka Gambar</button>
-            <button id="download-btn" class="btn-primary">Download QR</button>
-        </div>
-
-        <script>
-            // 3. Beri sedikit jeda agar library QR di <head> selesai diload
-            setTimeout(function() {
-                const combinedValue = <?php echo json_encode($combined, JSON_UNESCAPED_UNICODE); ?>;
-                const canvas = document.getElementById('qrcode-canvas');
-                
-                // Gunakan library qrcode.min.js yang sudah ada di <head> mu
-                if (typeof QRCode !== 'undefined' && combinedValue !== 'KOSONG' && combinedValue !== '') {
-                    QRCode.toCanvas(canvas, combinedValue, {
-                        width: 250,
-                        margin: 2,
-                        color: { dark: "#000000", light: "#ffffff" }
-                    }, function (error) {
-                        if (error) console.error("Gagal menggambar QR:", error);
-                    });
-                } else {
-                    // Fallback jika data kosong atau error
-                    const ctx = canvas.getContext('2d');
-                    canvas.width = 250;
-                    canvas.height = 250;
-                    ctx.font = '16px sans-serif';
-                    ctx.textAlign = "center";
-                    ctx.fillText('Data QR Kosong/Error', 125, 125);
-                }
-            }, 300);
-
-            // Fungsi Buka Gambar
-            document.getElementById('open-btn').addEventListener('click', function() {
-                const canvas = document.getElementById('qrcode-canvas');
-                const dataUrl = canvas.toDataURL('image/png');
-                const w = window.open('about:blank');
-                if (w) {
-                    w.document.write('<img src="' + dataUrl + '" alt="QR Code" style="max-width:100%; display:block; margin:auto;">');
-                } else {
-                    alert('Pop-up diblokir. Izinkan pop-up untuk membuka gambar.');
-                }
-            });
-
-            // Fungsi Download
-            document.getElementById('download-btn').addEventListener('click', function() {
-                const canvas = document.getElementById('qrcode-canvas');
-                const dataUrl = canvas.toDataURL('image/png');
-                const a = document.createElement('a');
-                a.href = dataUrl;
-                a.download = 'qr_<?php echo htmlspecialchars($username, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); ?>.png';
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-            });
-        </script>
-    </div>
+            <?php
+            } else {
+                // --- JIKA SUDAH LOGIN: TAMPILKAN QR CODE ---
+            ?>
+                <div id="qr-form" style="text-align:center;">
+                    <h3 style="margin-bottom:15px;">QR Code Anda</h3>
+                    <?php
+                    $file = __DIR__ . '/qr_secure.php';
+                    if (file_exists($file) && is_readable($file)) {
+                        include $file;
+                    } else {
+                        echo "<p style='color:red;'>File QR tidak ditemukan.</p>";
+                    }
+                    ?>
+                    <div style="margin-top: 20px;">
+                        <a href="logout.php" class="btn-outline" style="text-decoration:none; padding: 8px 16px;">Keluar (Logout)</a>
+                    </div>
+                </div>
             <?php
             }
             ?>
@@ -693,4 +636,22 @@ require 'config/koneksi.php';
     <div><strong>Traction Day 2026</strong> · STC Department · Telkomsel Internal Event</div>
     <div>Thu 3 Sep 2026 · TSO 6F · Champion 1–4</div>
   </footer>
+
+            <section id="registration" class="section">
+                <div class="section-head" style="margin-top:8px">
+                    <div class="overline">Visitor QR</div>
+                </div>
+                <div class="registration-card">
+                    <?php
+                    $file = __DIR__ . '/qr_secure.php';
+
+                    if (file_exists($file) && is_readable($file)) {
+                        include $file;
+                    } else {
+                        echo "<p style='color:red;'>File tidak ditemukan atau tidak bisa dibaca.</p>";
+                    }
+                    ?>
+                </div>
+            </section>
+
 </html>
