@@ -1,15 +1,3 @@
-<?php
-// NAMA FILE: login.php (VERSI DIPERBARUI DENGAN DESAIN)
-
-session_start(); // Memulai session
-require 'config/koneksi.php';
-
-// Jika sudah login, alihkan ke dashboard
-if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
-    header('Location: dashboard_with_qr_copy.php');
-    exit;
-}
-?>
 <head>
     <link rel="stylesheet" href="/CSS/Loginstyle.css">
 </head>
