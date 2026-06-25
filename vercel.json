@@ -7,7 +7,7 @@
   "redirects": [
     {
       "source": "/",
-      "destination": "/api/index.php",
+      "destination": "/index.php",
       "permanent": false
     }
   ]
