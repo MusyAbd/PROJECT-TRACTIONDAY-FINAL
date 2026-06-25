@@ -48,9 +48,7 @@ if (empty($qrData)) {
             pg_free_result($upd);
         }
     }
-} else {
-    //$saveMessage = 'QR untuk akun ini sudah ada dan tidak dapat diganti.';
-}
+} 
 
 setcookie("last_qr", $qrData, time() + 86400, "/");
 $combined = $qrData;
