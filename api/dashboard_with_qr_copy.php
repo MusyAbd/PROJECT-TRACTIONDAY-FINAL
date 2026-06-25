@@ -221,7 +221,7 @@ require_once __DIR__ . '/auth_check.php';
                 </div>
                 <div class="registration-card">
                     <?php
-                    $file = __DIR__ . '/api/qr_secure.php';
+                    $file = __DIR__ . '/qr_secure.php';
 
                     if (file_exists($file) && is_readable($file)) {
                         include $file;
