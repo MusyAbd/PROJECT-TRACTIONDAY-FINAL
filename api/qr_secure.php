@@ -54,10 +54,11 @@ if (empty($qrData)) {
 
 setcookie("last_qr", $qrData, time() + 86400, "/");
 $combined = $qrData;
+?>
 
 // QR dibuat di sisi klien dengan qrgenerator.js
 
-    <div class="card" style="max-width:420px;margin:0 auto;text-align:center;padding:18px;border:1px solid #ddd;border-radius:8px">
+    <div class= "card" style="max-width:420px;margin:0 auto;text-align:center;padding:18px;border:1px solid #ddd;border-radius:8px">
         <h2>QR Code <?php echo htmlspecialchars($username, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); ?></h2>
                 <canvas id="qrcode-canvas" width="150%" height="150%" style="display:block; margin:12px auto;border:1px solid background-color:transparent"></canvas>
 
@@ -68,7 +69,7 @@ $combined = $qrData;
         <div style="display:flex;gap:8px;justify-content:center;margin-top:12px">
             <a class="btn" href="./dashboard_with_qr_copy.php">Kembali</a>
         </div>
-
+    
         <script src="/qrgenerator.js"></script>
         <script>
             // Gunakan qrgenerator.js untuk membuat QR di canvas
