@@ -532,7 +532,7 @@ require 'config/koneksi.php';
         <div class="qr-panel reveal" style="transition-delay:.12s">
             <?php
             // Cek apakah user SUDAH login (Asumsi nama session login kamu adalah 'user_id' atau 'username')
-            if (!isset($_SESSION['user_id'])) { 
+            if (!isset($_COOKIE['user_id'])) { 
                 // --- JIKA BELUM LOGIN: TAMPILKAN FORM LOGIN ---
             ?>
                 <div class="qr-form">
