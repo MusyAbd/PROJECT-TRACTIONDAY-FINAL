@@ -1,259 +1,249 @@
-const hamburgerBtn = document.getElementById('hamburger-btn');
-const sidebarmenu = document.getElementById('sidebarmenu');
-const sidebar = document.querySelector('.sidebar');
-const navLinks = document.querySelectorAll('.nav-link');
-const sections = document.querySelectorAll('.section');
-const page = document.querySelector('.page');
-
-function toggleSidebar() {
-  sidebarmenu.classList.toggle('hidden');
-  sidebar.classList.toggle('background_maincolor');
-}
-
-hamburgerBtn.addEventListener('click', function() {
-  toggleSidebar();
-});
-
-if (window.innerWidth <= 768) {
-  sidebarmenu.classList.add('hidden');
-}
-
-document.addEventListener('click', function(event) {
-  if (!sidebarmenu.contains(event.target) && !hamburgerBtn.contains(event.target)) {
-    sidebarmenu.classList.add('hidden');
-    sidebar.classList.remove('background_maincolor');
-  }
-});
-
-function openSection(target, push = true) {
-  if (!document.getElementById(target)) {
-    target = 'about';
-  }
-
-  navLinks.forEach(link => link.classList.toggle('active', link.dataset.target === target));
-  sections.forEach(section => section.classList.toggle('active', section.id === target));
-  page.scrollTo({ top: 0, behavior: 'smooth' });
-
-  if (push && history.pushState) {
-    history.pushState({ section: target }, '', `#${target}`);
-  }
-}
-
-navLinks.forEach(link => {
-  link.addEventListener('click', () => {
-    openSection(link.dataset.target);
-    if (window.innerWidth <= 768) {
-      sidebarmenu.classList.add('hidden');
+   /* ─ MOBILE MENU ─ */
+    function toggleMenu() {
+      const m = document.getElementById('mobileMenu');
+      m.classList.toggle('open');
     }
-  });
-});
+    function closeMenu() {
+      document.getElementById('mobileMenu').classList.remove('open');
+    }
 
-document.querySelectorAll('[data-jump]').forEach(button => {
-  button.addEventListener('click', () => openSection(button.dataset.jump));
-});
-
-window.addEventListener('popstate', event => {
-  const section = (event.state && event.state.section) || location.hash.replace('#', '') || 'about';
-  openSection(section, false);
-});
-
-const initialSection = location.hash.replace('#', '') || 'about';
-openSection(initialSection, false);
-
-function updateCountdown() {
-  const target = new Date('2026-09-03T08:00:00+07:00').getTime();
-  let diff = Math.max(target - Date.now(), 0);
-  const dayMs = 864e5;
-  const hourMs = 36e5;
-  const minuteMs = 6e4;
-
-  document.getElementById('days').textContent = Math.floor(diff / dayMs);
-  document.getElementById('hours').textContent = String(Math.floor((diff % dayMs) / hourMs)).padStart(2, '0');
-  document.getElementById('minutes').textContent = String(Math.floor((diff % hourMs) / minuteMs)).padStart(2, '0');
-  document.getElementById('seconds').textContent = String(Math.floor((diff % minuteMs) / 1000)).padStart(2, '0');
-}
-
-updateCountdown();
-setInterval(updateCountdown, 1000);
-
-const products = [
-  { id: 'ava', name: 'AVA', track: 'mobile', type: 'MVP Product', booth: 'Champion 1', icon: '🤖', short: 'AI-powered digital assistance concept for smarter customer interaction, service discovery, and support experiences.', problem: 'Customers need faster, smarter, and more intuitive ways to discover services and resolve needs inside Telkomsel digital journeys.', proposition: 'AVA acts as an intelligent assistant layer that helps users navigate product information, recommendations, and service support more naturally.', focus: ['Core use cases and customer journey clarity', 'AI readiness, data source, and integration needs', 'GTM positioning and differentiation', 'Launch priority versus existing service channels'] },
-  { id: 'proteksi', name: 'ProtekSi Kecil', track: 'mobile', type: 'Existing Enhancement', booth: 'Champion 1', icon: '🛡️', short: 'Family-focused protection proposition to help parents monitor, protect, and guide children’s digital activities.', problem: 'Parents want practical protection for children’s digital activities, but the journey needs to feel simple, trusted, and non-intrusive.', proposition: 'A child digital safety product that packages protection, monitoring, and family peace of mind into one accessible mobile proposition.', focus: ['Parent pain point validation', 'Feature simplicity and trust cues', 'Bundling strategy with existing packages', 'Retention and upsell opportunity'] },
-  { id: 'kids-locator', name: 'Kids Locator', track: 'mobile', type: 'MVP Product', booth: 'Champion 1', icon: '📍', short: 'Location-based family safety concept that helps parents stay connected with child visibility features.', problem: 'Families need reassurance and location visibility, especially for children moving between school, home, and activities.', proposition: 'A location-based safety layer that helps parents know where their children are and receive relevant movement updates.', focus: ['Safety use case and privacy boundaries', 'Device and network dependency', 'Monetization model', 'Priority versus other family products'] },
-  { id: 'siscamling', name: 'Siscamling', track: 'mobile', type: 'Existing Enhancement', booth: 'Champion 1', icon: '👁️', short: 'Community safety experience that turns connectivity into a practical neighborhood protection layer.', problem: 'Neighborhood safety initiatives often lack simple digital coordination and real-time communication tools.', proposition: 'A community safety proposition that uses connectivity to support neighborhood monitoring, coordination, and alerting.', focus: ['Community adoption model', 'Partnership and operational feasibility', 'Data privacy and moderation', 'Local market rollout priority'] },
-  { id: 'fttr', name: 'FTTR', track: 'fixed', type: 'Existing Enhancement', booth: 'Champion 2', icon: '⚡', short: 'Fiber-to-the-room solution for stronger home WiFi coverage, better stability, and premium broadband experience.', problem: 'Households increasingly need consistent connectivity in every room, not just higher headline speed.', proposition: 'FTTR extends fiber performance deeper inside the home, creating a premium and more reliable broadband experience.', focus: ['Customer segment and pricing', 'Installation journey readiness', 'Premium positioning versus standard WiFi', 'Operational scalability'] },
-  { id: 'indihome-smart', name: 'IndiHome Smart', track: 'fixed', type: 'MVP Product', booth: 'Champion 2', icon: '🏠', short: 'Smart-home ecosystem proposition that combines home connectivity with intelligent digital living services.', problem: 'Smart-home adoption remains fragmented, with customers needing a simpler bundle that connects devices, services, and home internet.', proposition: 'A smart-home proposition that integrates connectivity with digital living services under one practical IndiHome experience.', focus: ['Hero use cases for launch', 'Partner ecosystem readiness', 'Bundle structure and pricing', 'Customer education needs'] },
-  { id: 'indihome-one', name: 'IndiHome One', track: 'fixed', type: 'Existing Enhancement', booth: 'Champion 2', icon: '🌐', short: 'Integrated fixed connectivity experience designed to simplify household digital needs in one proposition.', problem: 'Customers want home connectivity to feel simpler, more integrated, and easier to manage across household needs.', proposition: 'IndiHome One simplifies the fixed broadband experience into one clearer proposition for the household.', focus: ['Simplified packaging', 'Cross-sell potential', 'Customer journey friction', 'Launch communication clarity'] },
-  { id: 'incar-wifi', name: 'In-Car WiFi', track: 'fixed', type: 'MVP Product', booth: 'Champion 2', icon: '🚗', short: 'Connectivity experience for vehicles, extending reliable internet access into mobility and family travel moments.', problem: 'Users increasingly expect internet continuity beyond the home, including inside vehicles during commute or travel.', proposition: 'A mobility connectivity product that brings reliable WiFi into car experiences for families, workers, and premium users.', focus: ['Target segment and willingness to pay', 'Device and installation model', 'Partnership opportunity', 'Launch readiness and support model'] }
-];
-
-const productGrid = document.getElementById('productGrid');
-const listView = document.getElementById('productListView');
-const detailView = document.getElementById('productDetailView');
-const detailContent = document.getElementById('productDetailContent');
-const backProducts = document.getElementById('backProducts');
-
-function renderProducts(filter = 'all') {
-  if (!productGrid) return;
-  productGrid.innerHTML = '';
-  products
-    .filter(product => filter === 'all' || product.track === filter)
-    .forEach(product => {
-      const card = document.createElement('article');
-      card.className = `product-card ${product.track}`;
-      card.innerHTML = `
-        <span class="tag">${product.track === 'mobile' ? 'Mobile' : 'Fixed'} · ${product.type}</span>
-        <div class="product-art">${product.icon}</div>
-        <h3>${product.name}</h3>
-        <p>${product.short}</p>
-        <div class="click-note">Tap for details →</div>
-      `;
-      card.addEventListener('click', () => showProduct(product.id));
-      productGrid.appendChild(card);
+    /* ─ NAV ACTIVE HIGHLIGHT ─ */
+    const sections = ['hero','events','products','qr','assistant'];
+    const navAs = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+      let cur = 'hero';
+      sections.forEach(id => {
+        const el = document.getElementById(id);
+        if (el && window.scrollY >= el.offsetTop - 100) cur = id;
+      });
+      navAs.forEach(a => {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + cur);
+      });
     });
-}
 
-function showProduct(id) {
-  const product = products.find(item => item.id === id);
-  if (!product) return;
+    /* ─ PRODUCT TABS ─ */
+    document.querySelectorAll('.product-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.product-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        const filter = tab.dataset.filter;
+        document.getElementById('mobileTrack').style.display = (filter === 'fixed') ? 'none' : '';
+        document.getElementById('fixedTrack').style.display = (filter === 'mobile') ? 'none' : '';
+      });
+    });
 
-  listView.style.display = 'none';
-  detailView.classList.add('active');
-  detailContent.innerHTML = `
-    <div class="detail-hero">
-      <div class="big-icon">${product.icon}</div>
-      <span class="tag">${product.track === 'mobile' ? 'Mobile' : 'Fixed'} · ${product.type}</span>
-      <h2>${product.name}</h2>
-      <p>${product.short}</p>
-    </div>
-    <div class="detail-meta">
-      <div class="detail-box"><small>Track</small><strong>${product.track === 'mobile' ? 'Mobile Product Team' : 'Fixed Product Team'}</strong></div>
-      <div class="detail-box"><small>Booth</small><strong>${product.booth}</strong></div>
-      <div class="detail-box"><small>Category</small><strong>${product.type}</strong></div>
-      <div class="detail-box"><small>Feedback</small><strong>Leadership Review</strong></div>
-    </div>
-    <div class="detail-section"><h3>Problem to Solve</h3><p>${product.problem}</p></div>
-    <div class="detail-section"><h3>Product Proposition</h3><p>${product.proposition}</p></div>
-    <div class="detail-section"><h3>Discussion Focus</h3><ul>${product.focus.map(item => `<li>${item}</li>`).join('')}</ul></div>
-  `;
-  page.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-if (backProducts) {
-  backProducts.addEventListener('click', () => {
-    detailView.classList.remove('active');
-    listView.style.display = 'block';
-    page.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-}
-
-const filterButtons = document.querySelectorAll('.filter');
-filterButtons.forEach(button => {
-  button.addEventListener('click', () => {
-    filterButtons.forEach(item => item.classList.remove('active'));
-    button.classList.add('active');
-    renderProducts(button.dataset.filter);
-  });
-});
-
-const defaultFilter = document.querySelector('.filter.active')?.dataset.filter || 'all';
-renderProducts(defaultFilter);
-
-const eventTabs = document.querySelectorAll('.event-tab');
-eventTabs.forEach(tab => {
-  tab.addEventListener('click', () => {
-    eventTabs.forEach(item => item.classList.remove('active'));
-    document.querySelectorAll('.event-panel').forEach(panel => panel.classList.remove('active'));
-    tab.classList.add('active');
-    document.getElementById(tab.dataset.panel).classList.add('active');
-  });
-});
-
-function deterministicHash(text) {
-  let hash = 0;
-  for (let i = 0; i < text.length; i++) {
-    hash = ((hash << 5) - hash) + text.charCodeAt(i);
-    hash |= 0;
-  }
-  return Math.abs(hash);
-}
-
-function fallbackQR(canvas, payload) {
-  const ctx = canvas.getContext('2d');
-  const size = canvas.width;
-  const cells = 29;
-  const cell = size / cells;
-  const seed = deterministicHash(payload);
-
-  ctx.fillStyle = '#fff';
-  ctx.fillRect(0, 0, size, size);
-  ctx.fillStyle = '#050712';
-
-  function finder(x, y) {
-    ctx.fillRect(x * cell, y * cell, 7 * cell, 7 * cell);
-    ctx.fillStyle = '#fff';
-    ctx.fillRect((x + 1) * cell, (y + 1) * cell, 5 * cell, 5 * cell);
-    ctx.fillStyle = '#050712';
-    ctx.fillRect((x + 2) * cell, (y + 2) * cell, 3 * cell, 3 * cell);
-  }
-
-  finder(1, 1);
-  finder(21, 1);
-  finder(1, 21);
-
-  for (let y = 0; y < cells; y++) {
-    for (let x = 0; x < cells; x++) {
-      const inFinder = (x >= 1 && x <= 7 && y >= 1 && y <= 7) || (x >= 21 && x <= 27 && y >= 1 && y <= 7) || (x >= 1 && x <= 7 && y >= 21 && y <= 27);
-      if (inFinder) continue;
-      const value = (x * 17 + y * 31 + seed + ((x * y) % 13)) % 7;
-      if (value === 0 || value === 3) {
-        ctx.fillRect(Math.floor(x * cell), Math.floor(y * cell), Math.ceil(cell), Math.ceil(cell));
+    /* ─ PRODUCT DETAIL MODAL ─ */
+    function openProduct(card) {
+      const art = card.querySelector('.product-art');
+      const artImg = art ? art.querySelector('img') : null;
+      const me = document.getElementById('modalEmoji');
+      me.className = 'modal-emoji';
+      if (artImg) {
+        me.classList.add('has-img');
+        if (art.classList.contains('white-bg')) me.classList.add('white-bg');
+        if (art.classList.contains('contain')) me.classList.add('contain');
+        const im = document.createElement('img');
+        im.src = artImg.getAttribute('src'); im.alt = '';
+        me.replaceChildren(im);
+      } else {
+        me.textContent = (art && art.textContent.trim()) || '📦';
       }
+      const tag = card.querySelector('.product-tag')?.textContent.trim() || '';
+      const title = card.querySelector('h3')?.textContent.trim() || '';
+      const desc = card.querySelector('p')?.textContent.trim() || '';
+      const type = card.dataset.type;
+      const room = type === 'mobile'
+        ? 'Mobile Product · Champion 1 (lantai 6 TSO, kiri pintu masuk)'
+        : 'Fixed Product · Champion 2 (lantai 6 TSO, kanan pintu masuk)';
+
+      document.getElementById('modalTag').textContent = tag;
+      document.getElementById('modalTitle').textContent = title;
+      document.getElementById('modalDesc').textContent = desc;
+      document.getElementById('modalRoom').textContent = '📍 ' + room;
+      document.getElementById('productModal').classList.add('open');
     }
-  }
-}
+    function closeProduct() {
+      document.getElementById('productModal').classList.remove('open');
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeProduct(); });
 
-const messages = document.getElementById('messages');
-const chatText = document.getElementById('chatText');
-const sendBtn = document.getElementById('sendBtn');
+    /* ─ FAQ ACCORDION ─ */
+    function toggleFaq(btn) {
+      const item = btn.closest('.faq-item');
+      const wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!wasOpen) item.classList.add('open');
+    }
 
-function addMessage(text, type) {
-  const bubble = document.createElement('div');
-  bubble.className = `bubble ${type}`;
-  bubble.textContent = text;
-  messages.appendChild(bubble);
-  messages.scrollTop = messages.scrollHeight;
-}
+    /* ─ SCROLL REVEAL ─ */
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-function answer(question) {
-  const text = question.toLowerCase();
+    /* ─ CITY SKYLINE (in case inline script didn't render) ─ */
+    (function() {
+      const city = document.querySelector('.poster-city');
+      if (city && city.children.length === 0) {
+        [28,18,38,14,48,22,36,12,54,20,42,16,60,24,40,18,50,26,34,14,44,20,38,16,52,22,46,18,32,12,48,24].forEach(h => {
+          const d = document.createElement('div');
+          d.className = 'city-bar';
+          d.style.height = h + 'px';
+          city.appendChild(d);
+        });
+      }
+    })();
 
-  if (text.includes('product')) return 'Open the Products tab to browse Mobile and Fixed products. Each product card is clickable and opens details such as booth, proposition, and discussion focus.';
-  if (text.includes('register') || text.includes('qr')) return 'Open QR Registration, input your full name and role, then generate your personal QR code for the registration desk.';
-  if (text.includes('where') && text.includes('next')) return 'Recommended flow: QR registration, opening keynote, booth tour in Champion 1 and 2, then Champion 3–4 for deep-dive prioritization.';
-  if (text.includes('champion 1') || text.includes('mobile')) return 'Champion 1 is for Mobile Product Team exhibition. Products include AVA, ProtekSi Kecil, Kids Locator, and Siscamling.';
-  if (text.includes('champion 2') || text.includes('fixed')) return 'Champion 2 is for Fixed Product Team exhibition. Products include FTTR, IndiHome Smart, IndiHome One, and In-Car WiFi.';
-  if (text.includes('objective') || text.includes('purpose')) return 'Traction Day is a working forum to showcase 2027 product pipelines, collect leadership feedback, and decide launch priorities.';
-  if (text.includes('rundown') || text.includes('schedule') || text.includes('time')) return 'The event runs 08.00–17.00 WIB on Thursday, 3 September 2026: registration, keynote, booth tour, deep-dive discussion, and wrap-up.';
+    /* ─ COUNTDOWN TO 3 SEP 2026 ─ */
+    (function() {
+      // 3 September 2026, 08:00 WIB (UTC+7)
+      const target = new Date('2026-09-03T08:00:00+07:00').getTime();
+      const elDays = document.getElementById('cd-days');
+      const elHours = document.getElementById('cd-hours');
+      const elMins = document.getElementById('cd-mins');
+      const elSecs = document.getElementById('cd-secs');
+      const grid = document.getElementById('countdown');
+      const pad = n => String(n).padStart(2, '0');
 
-  return 'I\'m sorry I could not help you with that. I can help with About Traction Day, Products, QR registration, venue layout, Champion rooms, rundown, and where to go next.';
-}
+      function tick() {
+        const diff = target - Date.now();
+        if (diff <= 0) {
+          grid.innerHTML = '<div class="countdown-live">🔴 Traction Day sedang berlangsung!</div>';
+          clearInterval(timer);
+          return;
+        }
+        const d = Math.floor(diff / 86400000);
+        const h = Math.floor((diff % 86400000) / 3600000);
+        const m = Math.floor((diff % 3600000) / 60000);
+        const s = Math.floor((diff % 60000) / 1000);
+        if (elDays) elDays.textContent = d;
+        if (elHours) elHours.textContent = pad(h);
+        if (elMins) elMins.textContent = pad(m);
+        if (elSecs) elSecs.textContent = pad(s);
+      }
+      tick();
+      const timer = setInterval(tick, 1000);
+    })();
 
-function send(question) {
-  const value = question || chatText.value.trim();
-  if (!value) return;
-  addMessage(value, 'user');
-  chatText.value = '';
-  setTimeout(() => addMessage(answer(value), 'bot'), 420);
-}
+    /* ─ QR GENERATOR ─ */
+    function generateQR() {
+      const email = document.getElementById('qrEmail').value.trim();
+      const dept = document.getElementById('qrDept').value.trim();
+      if (!email) { alert('Masukkan email terlebih dahulu.'); return; }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { alert('Masukkan email yang valid.'); return; }
 
-sendBtn.addEventListener('click', () => send());
-chatText.addEventListener('keydown', event => {
-  if (event.key === 'Enter') send();
-});
+      const id = 'TD26-' + Math.random().toString(36).substring(2, 8).toUpperCase();
+      const qrData = JSON.stringify({ event: 'Traction Day 2026', email, dept, id, ts: new Date().toISOString() });
 
-document.querySelectorAll('.suggestions button').forEach(button => {
-  button.addEventListener('click', () => send(button.dataset.question));
-});
+      const canvas = document.getElementById('qrCanvas');
+      drawQR(canvas, qrData, 200);
 
-renderProducts();
+      document.getElementById('qrNameLabel').textContent = 'Hi ' + email + (dept ? ' from ' + dept : '') + ', this is your QR Code';
+      document.getElementById('qrIdLabel').textContent = id;
+      document.getElementById('qrOutput').classList.add('show');
+    }
+
+    /* Simple QR-like pattern renderer (visual placeholder using data hash) */
+    function drawQR(canvas, data, size) {
+      const ctx = canvas.getContext('2d');
+      canvas.width = size; canvas.height = size;
+      const modules = 25;
+      const cell = size / modules;
+
+      // Background
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, size, size);
+
+      // Deterministic pattern from data
+      let hash = 0;
+      for (let i = 0; i < data.length; i++) { hash = ((hash << 5) - hash + data.charCodeAt(i)) | 0; }
+      const rng = (n) => { hash = ((hash * 1664525) + 1013904223) | 0; return Math.abs(hash) % n; };
+
+      ctx.fillStyle = '#000000';
+
+      // Draw data modules
+      for (let r = 0; r < modules; r++) {
+        for (let c = 0; c < modules; c++) {
+          // Skip finder pattern zones
+          const inFinder = (r < 8 && c < 8) || (r < 8 && c >= modules - 8) || (r >= modules - 8 && c < 8);
+          if (!inFinder) {
+            if (rng(2) === 1) {
+              ctx.fillRect(c * cell, r * cell, cell - 0.5, cell - 0.5);
+            }
+          }
+        }
+      }
+
+      // Draw finder patterns (top-left, top-right, bottom-left)
+      [[0, 0], [0, modules - 7], [modules - 7, 0]].forEach(([r, c]) => {
+        ctx.fillStyle = '#000';
+        ctx.fillRect(c * cell, r * cell, 7 * cell, 7 * cell);
+        ctx.fillStyle = '#fff';
+        ctx.fillRect((c + 1) * cell, (r + 1) * cell, 5 * cell, 5 * cell);
+        ctx.fillStyle = '#000';
+        ctx.fillRect((c + 2) * cell, (r + 2) * cell, 3 * cell, 3 * cell);
+      });
+
+      // Center label overlay
+      const cx = size / 2, cy = size / 2;
+      ctx.fillStyle = 'rgba(255,255,255,0.92)';
+      ctx.beginPath();
+      ctx.roundRect(cx - 28, cy - 14, 56, 28, 6);
+      ctx.fill();
+      ctx.fillStyle = '#080a18';
+      ctx.font = 'bold 9px -apple-system, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('TD2026', cx, cy);
+    }
+
+    function downloadQR() {
+      const canvas = document.getElementById('qrCanvas');
+      const email = document.getElementById('qrEmail').value.trim();
+      const slug = (email.split('@')[0] || 'qr').replace(/[^a-zA-Z0-9._-]/g, '-');
+      const link = document.createElement('a');
+      link.download = 'QR-Absen-TractionDay2026-' + slug + '.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    }
+
+    /* ─ AI CHAT ─ */
+    const faqs = [
+      { keys: ['champion 1', 'booth mobile', 'mobile booth'], ans: 'Champion 1 ada di lantai 6 TSO, area kiri pintu masuk. Di sana kamu bisa menemukan booth Mobile Products: AVA, ProtekSi Kecil, Kids Locator, dan Siscamling.' },
+      { keys: ['champion 2', 'booth fixed', 'fixed booth'], ans: 'Champion 2 ada di sebelah kanan pintu masuk, lantai 6 TSO. Fixed Products: FTTR, IndiHome Smart, IndiHome One, dan In-Car WiFi.' },
+      { keys: ['champion 3'], ans: 'Champion 3 adalah Launch Readiness Room — ruangan khusus untuk decision-maker review kesiapan launch dan feedback per produk. Dimulai pukul 13.00.' },
+      { keys: ['champion 4'], ans: 'Champion 4 adalah Prioritization Room — tempat konsolidasi semua feedback menjadi product priority list 2027. Sesi mulai pukul 15.30.' },
+      { keys: ['produk mobile', 'mobile apa saja', 'mobile track'], ans: 'Mobile Products (Champion 1) menampilkan 4 produk: AVA (AI assistant MVP), ProtekSi Kecil (family protection), Kids Locator (MVP), dan Siscamling (community safety enhancement).' },
+      { keys: ['produk fixed', 'fixed apa saja', 'fixed track'], ans: 'Fixed Products (Champion 2): FTTR (fiber-to-the-room, existing), IndiHome Smart (smart-home MVP), IndiHome One (integrated connectivity enhancement), dan In-Car WiFi (mobility MVP).' },
+      { keys: ['jadwal', 'agenda', 'rundown', 'acara hari'], ans: '08.00 Check-in · 09.00 Opening Keynote · 10.00 Booth Exhibition · 12.00 Lunch · 13.00 Deep-dive Discussion · 15.30 Prioritization Workshop · 16.30 Closing · 17.00 Selesai.' },
+      { keys: ['decision maker', 'harus ke mana'], ans: 'Sebagai decision-maker, rutenya: Check-in → Booth Tour Champion 1 & 2 → Deep-dive Champion 3 (13.00) → Prioritization Champion 4 (15.30). Harap hadir di Champion 3 tepat waktu.' },
+      { keys: ['tujuan', 'apa itu', 'traction day'], ans: 'Traction Day 2026 adalah internal forum Telkomsel STC untuk showcase 8 produk pipeline 2027, mengumpulkan feedback leadership, dan menetapkan urutan prioritas launch berdasarkan readiness dan business impact.' },
+      { keys: ['check-in', 'absen', 'registrasi', 'qr'], ans: 'Generate QR code absensimu di halaman QR Absen, lalu tunjukkan ke panitia di depan Champion 1 mulai pukul 08.00.' },
+      { keys: ['venue', 'lokasi', 'di mana', 'tso'], ans: 'Event berlangsung di Telkomsel Smart Office (TSO) Lantai 6, Champion 1–4. Kamis, 3 September 2026, 08.00–17.00 WIB.' },
+    ];
+
+    function getAnswer(q) {
+      const lq = q.toLowerCase();
+      const hit = faqs.find(f => f.keys.some(k => lq.includes(k)));
+      return hit ? hit.ans : 'Hmm, saya belum punya jawaban pasti untuk itu. Coba tanya ke panitia di area check-in, atau cek section Rundown dan Products di halaman ini!';
+    }
+
+    function sendMsg(text) {
+      const msgs = document.getElementById('chatMessages');
+      const u = document.createElement('div');
+      u.className = 'bubble user'; u.textContent = text; msgs.appendChild(u);
+      msgs.scrollTop = msgs.scrollHeight;
+      setTimeout(() => {
+        const b = document.createElement('div');
+        b.className = 'bubble bot'; b.textContent = getAnswer(text); msgs.appendChild(b);
+        msgs.scrollTop = msgs.scrollHeight;
+      }, 360);
+    }
+
+    function sendChatInput() {
+      const input = document.getElementById('chatInput');
+      const text = input.value.trim();
+      if (!text) return;
+      input.value = '';
+      sendMsg(text);
+    }
