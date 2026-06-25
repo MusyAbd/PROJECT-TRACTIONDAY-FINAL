@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 $_SESSION["last_qr"] = $lastQr;
                 // Alihkan ke halaman dashboard setelah login
-                header('Location: ./dashboard_with_qr_copy.php');
+                header('Location: /api/dashboard_with_qr_copy.php');
                 exit();
             }
         }
