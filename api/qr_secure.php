@@ -54,7 +54,6 @@ if (empty($qrData)) {
 $combined = $qrData;
 ?>
 
-// QR dibuat di sisi klien dengan qrgenerator.js
 
     <div class= "card" style="max-width:420px;margin:0 auto;text-align:center;padding:18px;border:1px solid #ddd;border-radius:8px">
         <h2>QR Code <?php echo htmlspecialchars($username, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); ?></h2>
