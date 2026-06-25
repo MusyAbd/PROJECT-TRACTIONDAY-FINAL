@@ -550,6 +550,14 @@ require 'config/koneksi.php';
             } else {
                 // --- JIKA SUDAH LOGIN: TAMPILKAN QR CODE ---
             ?>
+    <div class= "card" style="max-width:420px;margin:0 auto;text-align:center;padding:18px;border:1px solid #ddd;border-radius:8px">
+        <h2>QR Code <?php echo htmlspecialchars($username, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); ?></h2>
+                <canvas id="qrcode-canvas" width="150%" height="150%" style="display:block; margin:12px auto;border:1px solid background-color:transparent"></canvas>
+
+        <?php if ($saveMessage !== null): ?>
+            <p style="margin-top:10px;color:#333;font-weight:600"><?php echo htmlspecialchars($saveMessage, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); ?></p>
+        <?php endif; ?>
+
         <script src="/qrgenerator.js"></script>
         <script>
             // Gunakan qrgenerator.js untuk membuat QR di canvas
