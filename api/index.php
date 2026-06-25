@@ -7,7 +7,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 	exit;
 }
 else {
-	header('Location: /dashboard_with_qr_copy.php');
+	header('Location: /api/dashboard_with_qr_copy.php');
 }
 
 include 'qr_secure.php';
