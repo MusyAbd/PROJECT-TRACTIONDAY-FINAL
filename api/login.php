@@ -10,12 +10,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
     exit;
 }
 ?>
-<!DOCTYPE html>
-<html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Petrokimia Gresik</title>
     <link rel="stylesheet" href="/CSS/Loginstyle.css">
 </head>
 <body>
@@ -26,7 +21,6 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
                 <input class="fillbar" type="text" name="username" placeholder="Username" required>
                 <input class="fillbar" type="password" name="password" placeholder="Password" required>
                 <button type="submit" class="btn">Sign In</button>
-                <p>Belum punya akun? <a href="register.php">Register</a></p>
             </form>
             <?php
             // Tampilkan pesan sukses atau error jika ada
