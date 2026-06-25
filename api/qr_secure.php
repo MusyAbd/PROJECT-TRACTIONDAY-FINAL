@@ -50,7 +50,7 @@ if (empty($qrData)) {
     }
 } 
 
-setcookie("last_qr", $qrData, time() + 86400, "/");
+/*setcookie("last_qr", $qrData, time() + 86400, "/");*/
 $combined = $qrData;
 ?>
 
