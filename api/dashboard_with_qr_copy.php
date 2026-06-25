@@ -1,5 +1,5 @@
 <?php
-require_once  '/api/config/koneksi.php';
+require 'config/koneksi.php';
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -550,7 +550,7 @@ require_once  '/api/config/koneksi.php';
             } else {
                 // --- JIKA SUDAH LOGIN: TAMPILKAN QR CODE ---
             ?>
-                <div id="qr-form" style="text-align:center;">
+                <div id="qr-" style="text-align:center;">
                     <h3 style="margin-bottom:15px;">QR Code Anda</h3>
                     <?php
                     $file = __DIR__ . '/qr_secure.php';
@@ -636,22 +636,4 @@ require_once  '/api/config/koneksi.php';
     <div><strong>Traction Day 2026</strong> · STC Department · Telkomsel Internal Event</div>
     <div>Thu 3 Sep 2026 · TSO 6F · Champion 1–4</div>
   </footer>
-
-            <section id="registration" class="section">
-                <div class="section-head" style="margin-top:8px">
-                    <div class="overline">Visitor QR</div>
-                </div>
-                <div class="registration-card">
-                    <?php
-                    $file = __DIR__ . '/qr_secure.php';
-
-                    if (file_exists($file) && is_readable($file)) {
-                        include $file;
-                    } else {
-                        echo "<p style='color:red;'>File tidak ditemukan atau tidak bisa dibaca.</p>";
-                    }
-                    ?>
-                </div>
-            </section>
-
 </html>
