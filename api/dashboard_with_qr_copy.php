@@ -550,17 +550,50 @@ require 'config/koneksi.php';
             } else {
                 // --- JIKA SUDAH LOGIN: TAMPILKAN QR CODE ---
             ?>
-                <div id="qr-form" style="text-align:center;">
-                    <h3 style="margin-bottom:15px;">QR Code Anda</h3>
-                    <?php
-                    $file = __DIR__ . '/qr_secure.php';
-                    if (file_exists($file) && is_readable($file)) {
-                        include $file;
-                    } else {
-                        echo "<p style='color:red;'>File QR tidak ditemukan.</p>";
-                    }
-                    ?>
-                </div>
+        <script src="/qrgenerator.js"></script>
+        <script>
+            // Gunakan qrgenerator.js untuk membuat QR di canvas
+            const combinedValue = <?php echo json_encode($combined, JSON_UNESCAPED_UNICODE); ?>;
+            const canvas = document.getElementById('qrcode-canvas');
+            try {
+                const qr = qrcodegen.QrCode.encodeText(combinedValue, qrcodegen.QrCode.Ecc.MEDIUM);
+                qr.drawCanvas(8, 6, canvas);//awalnya 5,4
+            } catch (err) {
+                console.error('QR generation failed', err);
+                // fallback: tulis teks
+                const ctx = canvas.getContext('2d');
+                ctx.font = '14px sans-serif';
+                ctx.fillText('QR generation failed', 10, 20);
+            }
+
+            function openImage() {
+                const dataUrl = canvas.toDataURL('image/png');
+                const w = window.open('about:blank');
+                if (w) {
+                    const img = w.document.createElement('img');
+                    img.src = dataUrl;
+                    img.alt = 'QR Code';
+                    img.style.maxWidth = '100%';
+                    w.document.body.style.margin = '0';
+                    w.document.body.appendChild(img);
+                } else {
+                    alert('Pop-up diblokir. Izinkan pop-up untuk membuka gambar.');
+                }
+            }
+
+            function downloadImage() {
+                const dataUrl = canvas.toDataURL('image/png');
+                const a = document.createElement('a');
+                a.href = dataUrl;
+                a.download = 'qr_<?php echo htmlspecialchars($username, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); ?>.png';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            }
+
+            document.getElementById('open-btn').addEventListener('click', openImage);
+            document.getElementById('download-btn').addEventListener('click', downloadImage);
+        </script>
             <?php
             }
             ?>
