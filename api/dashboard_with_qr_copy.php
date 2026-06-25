@@ -546,62 +546,69 @@ require 'config/koneksi.php';
                     }
                     ?>
                 </div>
-            <?php
-            } else {
-                // --- JIKA SUDAH LOGIN: TAMPILKAN QR CODE ---
-            ?>
-    <div class= "card" style="max-width:420px;margin:0 auto;text-align:center;padding:18px;border:1px solid #ddd;border-radius:8px">
-        <h2>QR Code <?php echo htmlspecialchars($username, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); ?></h2>
-                <canvas id="qrcode-canvas" width="150%" height="150%" style="display:block; margin:12px auto;border:1px solid background-color:transparent"></canvas>
+                <?php
+                            } else {
+                                // --- JIKA SUDAH LOGIN: TAMPILKAN QR CODE ---
+                                
+                                // 1. TANGKAP DATA DARI COOKIE SEBELUM DIGUNAKAN
+                                $username = $_COOKIE['username'] ?? 'User';
+                                $combined = $_COOKIE['last_qr'] ?? ''; 
+                                $saveMessage = null; // Kosongkan jika tidak ada pesan error/sukses
+                            ?>
+                            
+                    <div class= "card" style="max-width:420px;margin:0 auto;text-align:center;padding:18px;border:1px solid #ddd;border-radius:8px">
+                        <h2>QR Code <?php echo htmlspecialchars($username, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); ?></h2>
+                                <canvas id="qrcode-canvas" width="150%" height="150%" style="display:block; margin:12px auto;border:1px solid background-color:transparent"></canvas>
 
-        <?php if ($saveMessage !== null): ?>
-            <p style="margin-top:10px;color:#333;font-weight:600"><?php echo htmlspecialchars($saveMessage, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); ?></p>
-        <?php endif; ?>
+                        <?php if ($saveMessage !== null): ?>
+                            <p style="margin-top:10px;color:#333;font-weight:600"><?php echo htmlspecialchars($saveMessage, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); ?></p>
+                        <?php endif; ?>
 
-        <script src="/qrgenerator.js"></script>
-        <script>
-            // Gunakan qrgenerator.js untuk membuat QR di canvas
-            const combinedValue = <?php echo json_encode($combined, JSON_UNESCAPED_UNICODE); ?>;
-            const canvas = document.getElementById('qrcode-canvas');
-            try {
-                const qr = qrcodegen.QrCode.encodeText(combinedValue, qrcodegen.QrCode.Ecc.MEDIUM);
-                qr.drawCanvas(8, 6, canvas);//awalnya 5,4
-            } catch (err) {
-                console.error('QR generation failed', err);
-                // fallback: tulis teks
-                const ctx = canvas.getContext('2d');
-                ctx.font = '14px sans-serif';
-                ctx.fillText('QR generation failed', 10, 20);
-            }
+                        <script src="/qrgenerator.js"></script>
+                        <script>
+                  // Gunakan qrgenerator.js untuk membuat QR di canvas
+                  const combinedValue = <?php echo json_encode($combined, JSON_UNESCAPED_UNICODE); ?>;
+                  ...
+                  const canvas = document.getElementById('qrcode-canvas');
+                  try {
+                      const qr = qrcodegen.QrCode.encodeText(combinedValue, qrcodegen.QrCode.Ecc.MEDIUM);
+                      qr.drawCanvas(8, 6, canvas);//awalnya 5,4
+                  } catch (err) {
+                      console.error('QR generation failed', err);
+                      // fallback: tulis teks
+                      const ctx = canvas.getContext('2d');
+                      ctx.font = '14px sans-serif';
+                      ctx.fillText('QR generation failed', 10, 20);
+                  }
 
-            function openImage() {
-                const dataUrl = canvas.toDataURL('image/png');
-                const w = window.open('about:blank');
-                if (w) {
-                    const img = w.document.createElement('img');
-                    img.src = dataUrl;
-                    img.alt = 'QR Code';
-                    img.style.maxWidth = '100%';
-                    w.document.body.style.margin = '0';
-                    w.document.body.appendChild(img);
-                } else {
-                    alert('Pop-up diblokir. Izinkan pop-up untuk membuka gambar.');
-                }
-            }
+                  function openImage() {
+                      const dataUrl = canvas.toDataURL('image/png');
+                      const w = window.open('about:blank');
+                      if (w) {
+                          const img = w.document.createElement('img');
+                          img.src = dataUrl;
+                          img.alt = 'QR Code';
+                          img.style.maxWidth = '100%';
+                          w.document.body.style.margin = '0';
+                          w.document.body.appendChild(img);
+                      } else {
+                          alert('Pop-up diblokir. Izinkan pop-up untuk membuka gambar.');
+                      }
+                  }
 
-            function downloadImage() {
-                const dataUrl = canvas.toDataURL('image/png');
-                const a = document.createElement('a');
-                a.href = dataUrl;
-                a.download = 'qr_<?php echo htmlspecialchars($username, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); ?>.png';
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-            }
+                  function downloadImage() {
+                      const dataUrl = canvas.toDataURL('image/png');
+                      const a = document.createElement('a');
+                      a.href = dataUrl;
+                      a.download = 'qr_<?php echo htmlspecialchars($username, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); ?>.png';
+                      document.body.appendChild(a);
+                      a.click();
+                      document.body.removeChild(a);
+                  }
 
-            document.getElementById('open-btn').addEventListener('click', openImage);
-            document.getElementById('download-btn').addEventListener('click', downloadImage);
-        </script>
+                  document.getElementById('open-btn').addEventListener('click', openImage);
+                  document.getElementById('download-btn').addEventListener('click', downloadImage);
+              </script>
             <?php
             }
             ?>
