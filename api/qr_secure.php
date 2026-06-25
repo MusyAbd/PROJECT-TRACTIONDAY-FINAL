@@ -13,7 +13,6 @@
  */
 
 require_once __DIR__ . '/config/koneksi.php';
-require_once __DIR__ . '/auth_check.php';
 
 $qrData = null;
 $username = $_COOKIE['username'] ?? null;
