@@ -19,6 +19,6 @@ setcookie("username", "", time() - 3600, "/");
 setcookie("last_qr", "", time() - 3600, "/");
 
 // Alihkan kembali ke halaman login (Gunakan garis miring awal untuk Vercel)
-header('Location: /login.php');
+header('Location: /api/dashboard_with_qr_copy.php');
 exit();
 ?>
