@@ -16,8 +16,8 @@ require_once __DIR__ . '/config/koneksi.php';
 require_once __DIR__ . '/auth_check.php';
 
 $qrData = null;
-$username = $_SESSION['username'] ?? null;
-$userId = $_SESSION['id'] ?? null;
+$username = $_COOKIE['username'] ?? null;
+$userId = $_COOKIE['id'] ?? null;
 
 if ($userId) {
     $sql = 'SELECT username, last_qr FROM users WHERE id = $1 LIMIT 1';
