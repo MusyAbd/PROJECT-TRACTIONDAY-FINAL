@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
 
                 // Alihkan ke halaman dashboard
-                header('Location: /dashboard_with_qr_copy.php');
+                header('Location: /api/dashboard_with_qr_copy.php');
                 exit();
             }
         }
