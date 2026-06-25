@@ -530,31 +530,43 @@ require 'config/koneksi.php';
 
         <!-- RIGHT: FORM -->
         <div class="qr-panel reveal" style="transition-delay:.12s">
-          <div class="qr-form">
-              <?php
-                    $file = __DIR__ . '/login.php';
-
-                    if (file_exists($file) && is_readable($file)) {
-                        include $file;
-                    } else {
-                        echo "<p style='color:red;'>File tidak ditemukan atau tidak bisa dibaca.</p>";
-                    }
-                    ?>
-          </div>
-
-          <button class="btn-generate" onclick="generateQR()">Register Yourself Here</button>
-
-                <div id="qrOutput">
+            <?php
+            // Cek apakah user SUDAH login (Asumsi nama session login kamu adalah 'user_id' atau 'username')
+            if (!isset($_SESSION['user_id'])) { 
+                // --- JIKA BELUM LOGIN: TAMPILKAN FORM LOGIN ---
+            ?>
+                <div class="qr-form">
+                    <h3 style="text-align:center; margin-bottom:15px;">Login untuk Membuka QR</h3>
                     <?php
-                    $file = __DIR__ . '/qr_secure.php';
-
+                    $file = __DIR__ . '/login.php';
                     if (file_exists($file) && is_readable($file)) {
                         include $file;
                     } else {
-                        echo "<p style='color:red;'>File tidak ditemukan atau tidak bisa dibaca.</p>";
+                        echo "<p style='color:red;'>File login tidak ditemukan.</p>";
                     }
                     ?>
                 </div>
+            <?php
+            } else {
+                // --- JIKA SUDAH LOGIN: TAMPILKAN QR CODE ---
+            ?>
+                <div id="qrOutput" style="text-align:center;">
+                    <h3 style="margin-bottom:15px;">QR Code Anda</h3>
+                    <?php
+                    $file = __DIR__ . '/qr_secure.php';
+                    if (file_exists($file) && is_readable($file)) {
+                        include $file;
+                    } else {
+                        echo "<p style='color:red;'>File QR tidak ditemukan.</p>";
+                    }
+                    ?>
+                    <div style="margin-top: 20px;">
+                        <a href="logout.php" style="color: #c4162a; text-decoration: underline; font-size: 14px;">Keluar (Logout)</a>
+                    </div>
+                </div>
+            <?php
+            }
+            ?>
         </div>
       </div>
     </div>
