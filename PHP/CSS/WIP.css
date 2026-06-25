@@ -1,0 +1,1271 @@
+/* ==========================================================================
+   1. ROOT VARIABLES & GLOBAL RESET
+   ========================================================================== */
+:root {
+  --bg: #03050b;
+  --panel: rgba(255, 255, 255, 0.075);
+  --panel2: rgba(255, 255, 255, 0.12);
+  --line: rgba(255, 255, 255, 0.15);
+  --text: #f8f8fb;
+  --muted: rgba(248, 248, 251, 0.68);
+  --dim: rgba(248, 248, 251, 0.45);
+  --red: #e5092f;
+  --red2: #ff3157;
+  --blue: #1976ff;
+  --blue2: #48a1ff;
+  --cyan: #63e6ff;
+  --r1: 34px;
+  --r2: 24px;
+  --r3: 18px;
+  --shadow: 0 34px 90px rgba(0, 0, 0, 0.58);
+
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 15px;
+  min-height: 100vh;
+  padding: 30px 14px 20px 14px;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 8% 8%, rgba(229, 9, 47, 0.36), transparent 28%),
+    radial-gradient(circle at 88% 8%, rgba(25, 118, 255, 0.36), transparent 31%),
+    radial-gradient(circle at 50% 88%, rgba(25, 118, 255, 0.18), transparent 32%),
+    linear-gradient(145deg, #05050b, #070b18 48%, #020309);
+}
+
+
+/* ==========================================================================
+   2. APP SHELL (responsive container, replaces old phone-frame mockup)
+   ========================================================================== */
+/* .app-shell is the single root wrapper: a max-width, centered container
+   that behaves like a normal responsive page instead of a fixed phone frame. */
+.app-shell {
+  position: relative;
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  border-radius: 28px;
+  overflow: hidden;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    #050712;
+  background-size: 36px 36px;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    0 34px 90px rgba(0, 0, 0, 0.58);
+}
+
+.app-shell:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 0 0, rgba(229, 9, 47, 0.34), transparent 28%),
+    radial-gradient(circle at 100% 0, rgba(25, 118, 255, 0.34), transparent 32%),
+    radial-gradient(circle at 52% 100%, rgba(14, 75, 174, 0.22), transparent 35%);
+  pointer-events: none;
+}
+
+
+/* ==========================================================================
+   3. PAGE / SCROLL CONTAINER
+   ========================================================================== */
+.page {
+  position: relative;
+  z-index: 2;
+  padding: 22px 18px 34px;
+}
+
+
+/* ==========================================================================
+   4. RESPONSIVE CONTENT GRID
+   ========================================================================== */
+/* Generic grid used to lay out cards/sections responsively: 1 column on
+   mobile, scaling up to more columns as viewport width grows. Apply this
+   class to any wrapper (e.g. .info-grid, .product-grid, .room-grid) that
+   should reflow into a grid instead of stacking on larger screens. */
+.content-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+@media (min-width: 640px) {
+  .content-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .content-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+
+/* ==========================================================================
+   5. TOP BAR (brand + hamburger)
+   ========================================================================== */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 -2px 10px;
+  padding: 8px 2px 12px;
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+}
+
+.sidebar {
+  background-color: transparent; /* Awalnya transparan, akan berubah saat aktif */
+  padding: 10px 1px 1px 18px;
+  border-radius: 8px;
+  overflow: hidden; /* Pastikan tidak ada konten yang keluar dari sidebar */
+  background-color: #000000; /* Warna latar belakang saat sidebar aktif */
+  transition: all 0.3s ease-in-out; /* Animasi transisi mulus */
+  border-radius: 34px; /* Sudut agak membulat biar tidak kaku */
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-logo {
+  width: 39px;
+  height: 39px;
+  border-radius: 13px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #e5092f, #151828 48%, #1976ff);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 12px 30px rgba(25, 118, 255, 0.24);
+  font-size: 21px;
+  font-weight: 950;
+  letter-spacing: -0.08em;
+}
+
+.brand-text small {
+  display: block;
+  color: var(--dim);
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 900;
+  margin-bottom: 4px;
+}
+
+.brand-text strong {
+  display: block;
+  font-size: 13px;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.hamburger {
+
+}
+
+.hamburger {
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background-color: transparent; /* Latar belakang transparan */
+  border: none; /* Hilangkan garis pinggir bawaan tombol */
+  color: #ffffff; 
+  font-size: 28px; /* Ukuran icon */
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 8px; /* Sudut agak membulat biar tidak kaku */
+  transition: all 0.2s ease-in-out; /* Animasi transisi mulus */
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Efek saat mouse menyorot tombol (Hover) */
+.hamburger:hover {
+  /* Memberikan warna putih yang sangat tipis/transparan agar ada efek interaktif */
+  background-color: transparent; /* Tetap transparan, tapi bisa ditambahkan efek lain jika diinginkan */
+  transform: scale(1.05); /* Tombol sedikit membesar */
+}
+
+/* Efek saat tombol ditekan (Active) */
+.hamburger:active {
+  transform: scale(0.95); /* Tombol sedikit mengecil seolah ditekan ke dalam */
+  background-color: transparent; /* Kembali ke latar belakang transparan saat ditekan */
+}
+
+/* Menghilangkan outline biru bawaan browser saat tombol diklik/fokus */
+.hamburger:focus {
+  outline: none;
+}
+.SendSVG:hover {
+  background-color: #2b2b35;
+}
+.hidden
+{
+  display: none !important;
+}
+
+
+/* ==========================================================================
+   6. NAVIGATION TABS
+   ========================================================================== */
+.nav,
+.sidebarmenu {
+  position: sticky;
+  top: 58px;
+  z-index: 48;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  flex-wrap: nowrap;
+  margin: 0 -18px 16px;
+  padding: 0 18px 12px;
+  backdrop-filter: blur(18px);
+  scrollbar-width: none;
+}
+
+.nav::-webkit-scrollbar,
+.sidebarmenu::-webkit-scrollbar {
+  display: none;
+}
+
+.nav button,
+.sidebarmenu button {
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.075);
+  color: rgba(255, 255, 255, 0.68);
+  border-radius: 999px;
+  padding: 10px 13px;
+  white-space: nowrap;
+  font-size: 11.5px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.nav button.active,
+.sidebarmenu button.active {
+  color: #060811;
+  background: #fff;
+  border-color: #fff;
+}
+
+
+/* ==========================================================================
+   7. SECTION VISIBILITY / TRANSITIONS
+   ========================================================================== */
+.section {
+  display: none;
+  animation: show 0.28s ease both;
+}
+
+.section.active {
+  display: block;
+}
+
+@keyframes show {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* ==========================================================================
+   8. HERO / POSTER / ABOUT
+   ========================================================================== */
+.poster-img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: var(--shadow);
+  margin-bottom: 14px;
+}
+
+.about-hero {
+  border-radius: 34px;
+  padding: 18px;
+  background:
+    radial-gradient(circle at 0 0, rgba(229, 9, 47, 0.28), transparent 37%),
+    radial-gradient(circle at 100% 0, rgba(25, 118, 255, 0.30), transparent 40%),
+    linear-gradient(150deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.045));
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  margin-bottom: 14px;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.34);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-weight: 950;
+  margin-bottom: 13px;
+}
+
+.pulse {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--red2);
+  box-shadow: 0 0 0 7px rgba(229, 9, 47, 0.18);
+}
+
+h1, h2, h3, p {
+  margin-top: 0;
+}
+
+.about-hero h1 {
+  margin: 0;
+  font-size: 38px;
+  line-height: 0.92;
+  letter-spacing: -0.07em;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.about-hero h1 span {
+  color: var(--red);
+}
+
+.slogan {
+  margin: 10px 0 0;
+  font-size: 19px;
+  font-weight: 950;
+  letter-spacing: -0.03em;
+}
+
+.slogan span {
+  color: var(--red2);
+}
+
+.about-hero p {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 12.8px;
+  line-height: 1.52;
+}
+
+.poster-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 9px;
+  margin-top: 15px;
+}
+
+.cta {
+  border: 0;
+  padding: 13px 12px;
+  border-radius: 999px;
+  font-weight: 950;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.cta.primary {
+  background: #fff;
+  color: #050712;
+}
+
+.cta.secondary {
+  background: rgba(255, 255, 255, 0.09);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+
+/* ==========================================================================
+   9. SECTION HEADERS (generic overline + title)
+   ========================================================================== */
+.section-head {
+  margin: 28px 2px 14px;
+}
+
+.overline {
+  color: var(--blue2);
+  font-size: 10px;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  font-weight: 950;
+  margin-bottom: 8px;
+}
+
+.section-head h2 {
+  margin: 0;
+  font-size: 29px;
+  line-height: 0.95;
+  letter-spacing: -0.06em;
+  font-weight: 950;
+}
+
+.section-head p {
+  margin: 9px 0 0;
+  color: var(--muted);
+  font-size: 12.8px;
+  line-height: 1.5;
+}
+
+
+/* ==========================================================================
+   10. COUNTDOWN WIDGET
+   ========================================================================== */
+.countdown-wrap {
+  padding: 17px;
+  border-radius: 32px;
+  background:
+    radial-gradient(circle at 0 0, rgba(229, 9, 47, 0.26), transparent 38%),
+    radial-gradient(circle at 100% 0, rgba(25, 118, 255, 0.28), transparent 42%),
+    linear-gradient(150deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.045));
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  margin-bottom: 16px;
+}
+
+.countdown-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.countdown-title strong {
+  font-size: 18px;
+  line-height: 1.06;
+  letter-spacing: -0.045em;
+}
+
+.countdown-title span {
+  color: var(--dim);
+  font-size: 11px;
+  font-weight: 800;
+  text-align: right;
+}
+
+.countdown {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.time-card {
+  min-height: 88px;
+  border-radius: 23px;
+  padding: 14px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.11);
+}
+
+.time-card .num {
+  display: block;
+  font-size: 33px;
+  line-height: 0.9;
+  letter-spacing: -0.07em;
+  font-weight: 950;
+}
+
+.time-card .label {
+  display: block;
+  margin-top: 8px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 10px;
+  font-weight: 900;
+}
+
+
+/* ==========================================================================
+   11. INFO GRID (stat cards)
+   ========================================================================== */
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+@media (min-width: 640px) {
+  .info-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .info-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.info-box {
+  position: relative;
+  overflow: hidden;
+  border-radius: 24px;
+  min-height: 120px;
+  padding: 15px;
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.045));
+  border: 1px solid rgba(255, 255, 255, 0.13);
+}
+
+.info-box:before {
+  content: "";
+  position: absolute;
+  right: -34px;
+  top: -30px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(25, 118, 255, 0.34), transparent 60%);
+}
+
+.info-box:nth-child(odd):before {
+  background: radial-gradient(circle, rgba(229, 9, 47, 0.34), transparent 60%);
+}
+
+.info-box small {
+  display: block;
+  color: var(--dim);
+  font-size: 9.8px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 950;
+  margin-bottom: 8px;
+}
+
+.info-box strong {
+  display: block;
+  position: relative;
+  z-index: 1;
+  font-size: 20px;
+  line-height: 1.02;
+  letter-spacing: -0.05em;
+}
+
+.info-box span {
+  display: block;
+  position: relative;
+  z-index: 1;
+  margin-top: 7px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+
+/* ==========================================================================
+   12. FILTER / TAB PILLS (shared by filters and event-tabs)
+   ========================================================================== */
+.filters,
+.event-tabs {
+  display: flex;
+  gap: 8px;
+  margin: 4px 0 14px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.filters::-webkit-scrollbar,
+.event-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.filter,
+.event-tab {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.075);
+  color: rgba(255, 255, 255, 0.64);
+  padding: 11px 12px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 950;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.filter.active,
+.event-tab.active {
+  background: #fff;
+  color: #050712;
+  border-color: #fff;
+}
+
+
+/* ==========================================================================
+   13. PRODUCT CARDS (grid view)
+   ========================================================================== */
+.product-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+@media (min-width: 640px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .product-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.product-card {
+  min-height: 210px;
+  padding: 17px;
+  border-radius: 30px;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.045));
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  cursor: pointer;
+}
+
+.product-card.hide {
+  display: none;
+}
+
+.product-card:before {
+  content: "";
+  position: absolute;
+  right: -48px;
+  top: -55px;
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(25, 118, 255, 0.38), transparent 64%);
+}
+
+.product-card.mobile:before {
+  background: radial-gradient(circle, rgba(229, 9, 47, 0.40), transparent 64%);
+}
+
+.product-art {
+  position: absolute;
+  right: 13px;
+  top: 48px;
+  width: 108px;
+  height: 108px;
+  border-radius: 32px;
+  display: grid;
+  place-items: center;
+  font-size: 42px;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.035));
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  transform: rotate(-4deg);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.24);
+}
+
+.product-art:after {
+  content: "";
+  position: absolute;
+  width: 118px;
+  height: 42px;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 50%;
+  transform: rotate(-28deg);
+}
+
+.tag {
+  display: inline-flex;
+  padding: 7px 10px;
+  border-radius: 999px;
+  color: #050712;
+  background: #fff;
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  margin-bottom: 22px;
+  position: relative;
+  z-index: 2;
+}
+
+.product-card h3 {
+  position: relative;
+  z-index: 2;
+  margin: 0 0 8px;
+  max-width: 188px;
+  font-size: 29px;
+  line-height: 0.95;
+  letter-spacing: -0.06em;
+}
+
+.product-card p {
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  max-width: 218px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.48;
+  padding-right: 22px;
+}
+
+.click-note {
+  position: absolute;
+  left: 17px;
+  bottom: 14px;
+  color: var(--blue2);
+  font-size: 11px;
+  font-weight: 950;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+
+/* ==========================================================================
+   14. PRODUCT DETAIL VIEW
+   ========================================================================== */
+.product-detail {
+  display: none;
+}
+
+.product-detail.active {
+  display: block;
+}
+
+.back-btn {
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.075);
+  color: #fff;
+  border-radius: 999px;
+  padding: 10px 13px;
+  font-size: 11.5px;
+  font-weight: 950;
+  margin-bottom: 14px;
+  cursor: pointer;
+}
+
+.detail-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 18px;
+  border-radius: 32px;
+  background:
+    radial-gradient(circle at 0 0, rgba(229, 9, 47, 0.26), transparent 38%),
+    radial-gradient(circle at 100% 0, rgba(25, 118, 255, 0.30), transparent 40%),
+    linear-gradient(150deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.045));
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  margin-bottom: 12px;
+}
+
+.detail-hero .big-icon {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  width: 86px;
+  height: 86px;
+  border-radius: 28px;
+  display: grid;
+  place-items: center;
+  font-size: 36px;
+  background: rgba(255, 255, 255, 0.11);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.detail-hero h2 {
+  margin: 22px 0 8px 8px;
+  font-size: 35px;
+  line-height: 0.92;
+  letter-spacing: -0.07em;
+  max-width: 235px;
+}
+
+.detail-hero p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12.8px;
+  line-height: 1.5;
+  max-width: 278px;
+}
+
+.detail-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+@media (max-width: 380px) {
+  .detail-meta {
+    grid-template-columns: 1fr;
+  }
+}
+
+.detail-box {
+  border-radius: 22px;
+  padding: 13px;
+  background: rgba(255, 255, 255, 0.075);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.detail-box small {
+  display: block;
+  color: var(--dim);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 950;
+  margin-bottom: 6px;
+}
+
+.detail-box strong {
+  display: block;
+  font-size: 14px;
+  line-height: 1.25;
+}
+
+.detail-section {
+  border-radius: 26px;
+  padding: 15px;
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.10), rgba(255, 255, 255, 0.045));
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  margin-bottom: 12px;
+}
+
+.detail-section h3 {
+  font-size: 16px;
+  letter-spacing: -0.03em;
+  margin: 0 0 8px;
+}
+
+.detail-section ul {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--muted);
+  font-size: 12.4px;
+  line-height: 1.55;
+}
+
+.detail-section p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.52;
+}
+
+
+/* ==========================================================================
+   15. EVENT PANEL / VENUE LAYOUT
+   ========================================================================== */
+.event-panel {
+  display: none;
+}
+
+.event-panel.active {
+  display: block;
+}
+
+.layout-card,
+.registration-card,
+.assistant-card {
+  padding: 16px;
+  border-radius: 32px;
+  background:
+    radial-gradient(circle at 0 0, rgba(229, 9, 47, 0.24), transparent 36%),
+    radial-gradient(circle at 100% 0, rgba(25, 118, 255, 0.26), transparent 38%),
+    linear-gradient(150deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.045));
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  margin-bottom: 14px;
+}
+
+.layout-title {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.layout-title strong {
+  font-size: 14px;
+  letter-spacing: -0.02em;
+}
+
+.layout-title span {
+  color: var(--dim);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.room-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 9px;
+}
+
+@media (min-width: 640px) {
+  .room-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.room {
+  min-height: 120px;
+  padding: 13px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  position: relative;
+  overflow: hidden;
+}
+
+.room.red {
+  background:
+    radial-gradient(circle at 14% 8%, rgba(229, 9, 47, 0.42), transparent 56%),
+    rgba(255, 255, 255, 0.07);
+}
+
+.room.blue {
+  background:
+    radial-gradient(circle at 84% 8%, rgba(25, 118, 255, 0.44), transparent 56%),
+    rgba(255, 255, 255, 0.07);
+}
+
+.room strong {
+  display: block;
+  font-size: 15px;
+  letter-spacing: -0.02em;
+  margin-bottom: 5px;
+}
+
+.room span {
+  color: var(--muted);
+  font-size: 11.5px;
+  line-height: 1.42;
+  display: block;
+}
+
+
+/* ==========================================================================
+   16. TIMELINE / SCHEDULE
+   ========================================================================== */
+.timeline {
+  display: grid;
+  gap: 10px;
+}
+
+.timeline-item {
+  display: grid;
+  grid-template-columns: 68px 1fr;
+  gap: 12px;
+  padding: 14px;
+  border-radius: 23px;
+  background: rgba(255, 255, 255, 0.075);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.timeline-time {
+  font-size: 12px;
+  color: var(--blue2);
+  font-weight: 950;
+  letter-spacing: -0.02em;
+}
+
+.timeline-item strong {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.timeline-item p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.42;
+}
+
+
+/* ==========================================================================
+   17. REGISTRATION FORM & QR RESULT
+   ========================================================================== */
+.form-grid {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 13px;
+}
+
+.field label {
+  display: block;
+  color: var(--dim);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 9.5px;
+  font-weight: 950;
+  margin: 0 0 7px 3px;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  outline: 0;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(0, 0, 0, 0.25);
+  color: #fff;
+  border-radius: 18px;
+  padding: 13px;
+  font-size: 13px;
+}
+
+.field input::placeholder {
+  color: rgba(255, 255, 255, 0.38);
+}
+
+.generate-btn {
+  width: 100%;
+  border: 0;
+  border-radius: 999px;
+  padding: 14px;
+  background: #fff;
+  color: #050712;
+  font-weight: 950;
+  font-size: 13px;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+
+.qr-result {
+  display: none;
+  gap: 14px;
+  align-items: center;
+  padding: 14px;
+  border-radius: 24px;
+  background: rgba(0, 0, 0, 0.26);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.qr-result.active {
+  display: grid;
+  grid-template-columns: 118px 1fr;
+}
+
+#qrCanvas {
+  width: 118px;
+  height: 118px;
+  background: #fff;
+  border-radius: 14px;
+  padding: 8px;
+}
+
+.qr-copy small {
+  display: block;
+  color: var(--dim);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 9px;
+  font-weight: 950;
+  margin-bottom: 6px;
+}
+
+.qr-copy strong {
+  display: block;
+  font-size: 16px;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin-bottom: 6px;
+  word-break: break-word;
+}
+
+.qr-copy span {
+  display: block;
+  color: var(--muted);
+  font-size: 11.5px;
+  line-height: 1.35;
+}
+
+
+/* ==========================================================================
+   18. AI ASSISTANT / CHAT WIDGET
+   ========================================================================== */
+.assistant-card {
+  min-height: 560px;
+  display: flex;
+  flex-direction: column;
+}
+
+.ai-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.ai-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #fff, #dceaff);
+  color: #050712;
+  display: grid;
+  place-items: center;
+  font-weight: 950;
+  letter-spacing: -0.03em;
+  box-shadow: 0 16px 34px rgba(25, 118, 255, 0.18);
+}
+
+.ai-head strong {
+  display: block;
+  font-size: 15px;
+  letter-spacing: -0.02em;
+}
+
+.ai-head span {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.messages {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.bubble {
+  max-width: 88%;
+  padding: 12px 13px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 12.5px;
+  line-height: 1.45;
+}
+
+.bot {
+  align-self: flex-start;
+  background: rgba(255, 255, 255, 0.10);
+  color: rgba(255, 255, 255, 0.82);
+  border-bottom-left-radius: 7px;
+}
+
+.user {
+  align-self: flex-end;
+  background: #fff;
+  color: #050712;
+  border-bottom-right-radius: 7px;
+  font-weight: 650;
+}
+
+.suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.suggestions button {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.075);
+  color: rgba(255, 255, 255, 0.72);
+  padding: 8px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 850;
+  cursor: pointer;
+}
+
+.chat-input {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  background: rgba(0, 0, 0, 0.26);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 999px;
+  padding: 9px;
+}
+
+.chat-input input {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  color: #fff;
+  border: 0;
+  outline: 0;
+  padding-left: 8px;
+  font-size: 13px;
+}
+
+.chat-input input::placeholder {
+  color: rgba(255, 255, 255, 0.42);
+}
+
+.send {
+  border: 0;
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  background: #fff;
+  color: #050712;
+  font-weight: 950;
+  cursor: pointer;
+}
+
+
+/* ==========================================================================
+   19. FOOTER
+   ========================================================================== */
+.footer {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.38);
+  font-size: 10.8px;
+  line-height: 1.45;
+  margin-top: 24px;
+}
+
+
+/* ==========================================================================
+   20. RESPONSIVE — SMALL SCREENS
+   ========================================================================== */
+@media (max-width: 430px) {
+  body {
+    padding: 0;
+    background:
+      radial-gradient(circle at 8% 8%, rgba(229, 9, 47, 0.36), transparent 28%),
+      radial-gradient(circle at 88% 8%, rgba(25, 118, 255, 0.36), transparent 31%),
+      radial-gradient(circle at 50% 88%, rgba(25, 118, 255, 0.18), transparent 32%),
+      linear-gradient(145deg, #05050b, #070b18 48%, #020309);
+  }
+
+  .app-shell {
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
