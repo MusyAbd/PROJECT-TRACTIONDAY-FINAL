@@ -6,8 +6,8 @@
         <div class="login-container">
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Telkomsel_%282021%29.svg/500px-Telkomsel_%282021%29.svg.png" style="margin: 24px;" class="gambar-logo" alt="Logo Petrokimia Gresik">
             <form action="login_process.php" method="POST" class="login-form"> 
-                <input class="fillbar" style="margin: 8px;" type="text" name="username" placeholder="Username" required style="margin: 8px;">
-                <input class="fillbar" style="margin: 8px;" type="password" name="password" placeholder="Password" required >
+                <input class="fillbar" style="margin-top: 8px;" type="text" name="username" placeholder="Username" required>
+                <input class="fillbar" style="margin-top: 8px;" type="password" name="password" placeholder="Password" required >
                 <button type="btn-generate" class="btn-generate" style="margin: 24px;">Generate QR</button>
             </form>
             <?php
