@@ -8,7 +8,7 @@
             <form action="login_process.php" method="POST" class="login-form"> 
                 <input class="fillbar" style="margin-top: 8px;" type="text" name="username" placeholder="Username" required>
                 <input class="fillbar" style="margin-top: 8px;" type="password" name="password" placeholder="Password" required >
-                <button type="btn-generate" class="btn-generate" style="margin: 24px;">Generate QR</button>
+                <button type="btn-generate" class="btn-generate" style="margin-top: 24px;">Generate QR</button>
             </form>
             <?php
             // Tampilkan pesan sukses atau error jika ada
