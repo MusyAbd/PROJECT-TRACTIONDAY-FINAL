@@ -1,5 +1,5 @@
 <head>
-    <link rel="stylesheet" href="/CSS/Loginstyle.css">
+    <link rel="stylesheet" href="/CSS/WIP.css">
 </head>
 <body>
     <div class="parent-container">
@@ -8,7 +8,7 @@
             <form action="login_process.php" method="POST" class="login-form"> 
                 <input class="fillbar" type="text" name="username" placeholder="Username" required>
                 <input class="fillbar" type="password" name="password" placeholder="Password" required>
-                <button type="submit" class="btn">Sign In</button>
+                <button type="btn-generate" class="btn-generate">Generate QR</button>
             </form>
             <?php
             // Tampilkan pesan sukses atau error jika ada
