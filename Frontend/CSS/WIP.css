@@ -743,6 +743,7 @@
       padding: 32px;
       text-align: center;
       width: 75%;
+      box-sizing: border-box;
     }
 
     .qr-form { text-align: left; margin-bottom: 24px; }
