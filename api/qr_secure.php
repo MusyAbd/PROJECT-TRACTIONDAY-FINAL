@@ -61,9 +61,7 @@ $combined = $qrData;
             <p style="margin-top:10px;color:#333;font-weight:600"><?php echo htmlspecialchars($saveMessage, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); ?></p>
         <?php endif; ?>
 
-        <div style="display:flex;gap:8px;justify-content:center;margin-top:12px">
-            <a class="btn" href="./dashboard_with_qr_copy.php">Kembali</a>
-        </div>
+        <div style="display:flex;gap:8px;justify-content:center;margin-top:12px"> </div>
     
         <script src="/qrgenerator.js"></script>
         <script>
