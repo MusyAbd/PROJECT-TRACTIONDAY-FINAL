@@ -69,7 +69,7 @@ $combined = $qrData;
             const combinedValue = <?php echo json_encode($combined, JSON_UNESCAPED_UNICODE); ?>;
             const canvas = document.getElementById('qrcode-canvas');
             try {
-                const qr = qrcodegen.QrCode.encodeText(combinedValue, qrcodegen.QrCode.Ecc.MEDIUM);
+                const qr = qrcodegen.QrCode.encodeText(combinedValue, qrcodegen.QrCode.Ecc.HIGH);
                 qr.drawCanvas(8, 6, canvas);//awalnya 5,4
             } catch (err) {
                 console.error('QR generation failed', err);
