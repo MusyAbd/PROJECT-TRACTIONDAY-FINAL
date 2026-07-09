@@ -97,7 +97,7 @@ $combined = $qrData;
             logo.onerror = function () {
                 console.warn('Logo gagal dimuat, QR tetap tampil tanpa logo');
             };
-            logo.src = '/assets/logo.png'; // sesuaikan path logo kamu
+            logo.src = 'https://th.bing.com/th/id/ODF.SkoJH2Z3zQKnR_pE3LW_YA?w=32&h=32&qlt=90&pcl=fffffc&o=6&pid=1.2; // sesuaikan path logo kamu
             // === AKHIR TAMBAHAN ===
 
             function openImage() {
