@@ -8,7 +8,7 @@
                 <label for="qrEmail">Email</label>
                 <input class="fillbar" style="margin-top: 8px;" type="text" name="username" placeholder="Username" required>
                 <label for="qrDept">Departemen</label>
-                <input class="fillbar" style="margin-top: 8px;" type="password" name="password" placeholder="Password" required >
+                <input class="fillbar" style="margin-top: 8px;" type="password" name="password" placeholder="Untuk Sementara Password" required >
                 <button type="btn-generate" class="btn-generate" style="margin-top: 24px;">Generate QR</button>
             </form>
             <?php
