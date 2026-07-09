@@ -97,7 +97,7 @@ $combined = $qrData;
             logo.onerror = function () {
                 console.warn('Logo gagal dimuat, QR tetap tampil tanpa logo');
             };
-            logo.src = 'https://etvmpmlvktzikoqpjzpe.supabase.co/storage/v1/object/sign/Asset%20gambar/logotelkom.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9mNWQwOTNlZi01OWViLTQ5MzEtYmU0MS1kMGVlNzc1MzY0OTIiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBc3NldCBnYW1iYXIvbG9nb3RlbGtvbS5wbmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgzNTY1MzU3LCJleHAiOjE4MTUxMDEzNTd9.Iexz9YhpnZl1wDoEue3Kkf7yTzVo3CkQwy2pEiyZ8LA'; // sesuaikan path logo kamu
+            logo.src = 'https://etvmpmlvktzikoqpjzpe.supabase.co/storage/v1/object/sign/Asset%20gambar/logotelkom%20(1).png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9mNWQwOTNlZi01OWViLTQ5MzEtYmU0MS1kMGVlNzc1MzY0OTIiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBc3NldCBnYW1iYXIvbG9nb3RlbGtvbSAoMSkucG5nIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MzU2NTg4OSwiZXhwIjoxODE1MTAxODg5fQ.WmIyZ50NG96lJL2vtF2yvDjPh4nnR66Qev86-I6qX5w'; // sesuaikan path logo kamu
             // === AKHIR TAMBAHAN ===
 
             function openImage() {
