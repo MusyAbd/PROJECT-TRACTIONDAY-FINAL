@@ -97,7 +97,7 @@ $combined = $qrData;
             logo.onerror = function () {
                 console.warn('Logo gagal dimuat, QR tetap tampil tanpa logo');
             };
-            logo.src = 'https://th.bing.com/th/id/ODF.SkoJH2Z3zQKnR_pE3LW_YA?w=32&h=32&qlt=90&pcl=fffffc&o=6&pid=1.2; // sesuaikan path logo kamu
+            logo.src = 'https://etvmpmlvktzikoqpjzpe.supabase.co/storage/v1/object/sign/Asset%20gambar/logotelkom.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9mNWQwOTNlZi01OWViLTQ5MzEtYmU0MS1kMGVlNzc1MzY0OTIiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBc3NldCBnYW1iYXIvbG9nb3RlbGtvbS5wbmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgzNTY1MzU3LCJleHAiOjE4MTUxMDEzNTd9.Iexz9YhpnZl1wDoEue3Kkf7yTzVo3CkQwy2pEiyZ8LA'; // sesuaikan path logo kamu
             // === AKHIR TAMBAHAN ===
 
             function openImage() {
