@@ -79,6 +79,27 @@ $combined = $qrData;
                 ctx.fillText('QR generation failed', 10, 20);
             }
 
+            // === TAMBAHAN BARU: sisipkan logo di tengah QR ===
+            const logo = new Image();
+            logo.crossOrigin = 'anonymous';
+            logo.onload = function () {
+                const ctx = canvas.getContext('2d');
+                const logoRatio = 0.2; // maks ~20% dari lebar canvas
+                const logoSize = canvas.width * logoRatio;
+                const x = (canvas.width - logoSize) / 2;
+                const y = (canvas.height - logoSize) / 2;
+                const pad = 6;
+
+                ctx.fillStyle = '#FFFFFF';
+                ctx.fillRect(x - pad, y - pad, logoSize + pad * 2, logoSize + pad * 2);
+                ctx.drawImage(logo, x, y, logoSize, logoSize);
+            };
+            logo.onerror = function () {
+                console.warn('Logo gagal dimuat, QR tetap tampil tanpa logo');
+            };
+            logo.src = '/assets/logo.png'; // sesuaikan path logo kamu
+            // === AKHIR TAMBAHAN ===
+
             function openImage() {
                 const dataUrl = canvas.toDataURL('image/png');
                 const w = window.open('about:blank');
