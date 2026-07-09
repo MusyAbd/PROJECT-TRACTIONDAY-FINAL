@@ -10,7 +10,7 @@ require 'config/koneksi.php';
     <link rel="stylesheet" href="/Frontend/CSS/WIP.css">
     <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js" defer></script>
     <script type="text/javascript" src="/Frontend/JS-UI/dashboard.js" defer></script>
-    <link rel="preload" as="image" href="https://etvmpmlvktzikoqpjzpe.supabase.co/storage/v1/object/sign/Asset%20gambar/logotelkom%20(1).png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9mNWQwOTNlZi01OWViLTQ5MzEtYmU0MS1kMGVlNzc1MzY0OTIiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBc3NldCBnYW1iYXIvbG9nb3RlbGtvbSAoMSkucG5nIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MzU2NTg4OSwiZXhwIjoxODE1MTAxODg5fQ.WmIyZ50NG96lJL2vtF2yvDjPh4nnR66Qev86-I6qX5w">
+    <link rel="preload" as="image" href="https://etvmpmlvktzikoqpjzpe.supabase.co/storage/v1/object/sign/Asset%20gambar/logotelkombnw.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9mNWQwOTNlZi01OWViLTQ5MzEtYmU0MS1kMGVlNzc1MzY0OTIiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBc3NldCBnYW1iYXIvbG9nb3RlbGtvbWJudy5wbmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgzNTY2NTExLCJleHAiOjE4MTUxMDI1MTF9.Mcqqr-naUDKdRE776T0imonWvUHLsDjx56L35_t8DpM">
 </head>
 <body class="dashboard-body">
  <!-- ── TOPNAV ── -->
