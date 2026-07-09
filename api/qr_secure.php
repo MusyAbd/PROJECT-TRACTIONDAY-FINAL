@@ -90,7 +90,7 @@ $combined = $qrData;
                 const y = (canvas.height - logoSize) / 2;
                 const pad = 6;
 
-                ctx.fillStyle = '#FFFFFF';
+                ctx.fillStyle = '#ffffff00';
                 ctx.fillRect(x - pad, y - pad, logoSize + pad * 2, logoSize + pad * 2);
                 ctx.drawImage(logo, x, y, logoSize, logoSize);
             };
